@@ -87,6 +87,6 @@ val buildTaskUsingNpm = tasks.register<NpmTask>("buildNpm") {
 //    dependsOn(tasks.named("assemble"))
     npmCommand.set(listOf("run", "build"))
     args.set(listOf("--", "--out-dir", "${buildDir}/npm-output", "--emptyOutDir"))
-    inputs.dir("src")
+    inputs.dir("src/frontend/src")
     outputs.dir("${buildDir}/npm-output")
 }
