@@ -8,7 +8,7 @@ import com.github.gradle.node.yarn.task.YarnTask
 plugins {
     java
     idea
-    id("org.springframework.boot") version "2.6.2"
+    id("org.springframework.boot") version "2.6.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
@@ -25,13 +25,22 @@ configurations {
     }
 }
 
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
+}
+
 repositories {
     mavenCentral()
+    maven(url = "https://packages.confluent.io/maven/")
 }
 
 dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
-    implementation( "io.projectreactor.kafka:reactor-kafka:1.3.8")
+
+    implementation( "io.projectreactor.kafka:reactor-kafka:1.3.9")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -41,6 +50,9 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
+    implementation("org.apache.avro:avro:1.11.0")
+    implementation("io.confluent:kafka-streams-avro-serde:7.0.1")
+    implementation("io.confluent:kafka-avro-serializer:7.0.1")
 }
 
 tasks.withType<KotlinCompile> {
